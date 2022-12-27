@@ -22,8 +22,6 @@ barre.onclick = ()=>{
     }
 }
 
-list_th = ['cg','hg','sp','ift','mq',"sc"]
-
 
 div_th = document.querySelectorAll('.sport')
 for (let i in div_th){
@@ -57,17 +55,33 @@ for (let i in div_th){
     }
 }
 
-
+// parametrage des couleur du theme
 thm = document.querySelector('.theme')
 char = document.querySelector('.char')
 th = document.getElementById('th')
-thm.onclick = () =>{
+cptx = 0
+thm.onclick =function () {
     cpt = 0
     for(let i in div_th){
         try{
             if (div_th[i].style.backgroundColor != 'white'){
                 cpt += 100/div_th.length
-                th.innerHTML = cpt.toFixed(0)+'% theme'
+                const compte = function(){
+                    i = cptx
+                    const t = setInterval(function() {
+
+                        i> cpt.toFixed(0) ? i--: i++
+                        // console.log(i);
+                        th.innerHTML = i+'% theme'
+                        if (i == cpt.toFixed(0)){ 
+                            clearInterval(t)
+                            cptx = cpt.toFixed(0)
+                        }
+                    }, 80)
+                }
+                compte()
+                
+                // th.innerHTML = cpt.toFixed(0)+'% theme'
                 char.style.transition = 'all 1s'
                 char.style.width = cpt.toFixed(0)+"%"
             }
@@ -90,22 +104,17 @@ rech.onkeyup = ()=>{
         lett += "0123456789 "
         for(let i in op){
             op[i].style.display = "none"
-            console.log(rech.value.toLowerCase())
-        
         veri = op[i].innerHTML.includes(rech.value.toLowerCase())
         veri1 = lett.includes(rech.value.toLowerCase())
         if (veri && veri1 ==false ){
             compte +=1
             op[i].style.display = "block"
-            // console.log(veri)
         }
         else{
             op[i].style.display = "none"
-            // console.log(veri)
         }
         if (compte == 0){
             aucun.style.display = "block"
-            // compte =-1
         }
         else{
             aucun.style.display = "none"
